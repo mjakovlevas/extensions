@@ -47,7 +47,8 @@ class Server_Manager_Directadmin extends Server_Manager
     public function getLoginUrl()
     {
         $host     = $this->_config['host'];
-        return 'http://'.$host.':2222';
+        $port	  = $this->_config['port'];
+        return 'https://'.$host.':'.$port;
     }
 
     public function getResellerLoginUrl()
@@ -366,6 +367,7 @@ class Server_Manager_Directadmin extends Server_Manager
     private function _request($command, $fields = array(), $post = true)
     {
         $host     = $this->_config['host'];
+	$port	  = $this->_config['port'];
         $usessl   = $this->_config['secure'];
         $authstr  = $this->_config['username'] . ':' . $this->_config['password'];
 
@@ -375,9 +377,9 @@ class Server_Manager_Directadmin extends Server_Manager
         if ($usessl) {
           curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0);
           curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
-          $url = 'https://' . $host . ':2222/' . $command . '?' . $fieldstring;
+          $url = 'https://' . $host . ':'.$port.'/' . $command . '?' . $fieldstring;
         } else {
-          $url = 'http://' . $host . ':2222/' . $command . '?' . $fieldstring;
+          $url = 'http://' . $host . ':'.$port.'/' . $command . '?' . $fieldstring;
         }
 
         curl_setopt ($ch, CURLOPT_URL, $url);
