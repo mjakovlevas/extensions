@@ -35,6 +35,9 @@ class Server_Manager_Directadmin extends Server_Manager
         if(empty($this->_config['password'])) {
             throw new Server_Exception('Server manager "Direct Admin" is not configured properly. Password is not set');
         }
+	   if(empty($this->_config['port'])) {
+            $this->_config['port'] = 2222;
+        }
 	}
 
     public static function getForm()
